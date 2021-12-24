@@ -208,7 +208,6 @@ public class AdressBook implements Serializable {
         } else {
             System.out.println("The address book is empty.");
         }
-        
     }
 
     private static void removeEntryWithEmail() {
@@ -247,9 +246,22 @@ public class AdressBook implements Serializable {
         System.out.println("Enter email address: ");
         userEmail = Scan.next();
 
-        Entry entry = new Entry(firstName, lastName, phoneNumber, userEmail);
-        collection.add(entry);
-        System.out.println("Added new entry!");
+        boolean duplicate = false;
+        for (Entry entry : collection) {
+            if (entry.getUserEmail().equals(userEmail)) {
+                duplicate = true;
+            } else {
+                duplicate = false;
+            }
+        }
+
+        if (!duplicate) {
+            Entry newEntry = new Entry(firstName, lastName, phoneNumber, userEmail);
+            collection.add(newEntry);
+            System.out.println("Added new entry!");
+        } else {
+            System.out.println("This user email already exists.");
+        }
     }
 
 }
